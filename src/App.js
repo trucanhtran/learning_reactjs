@@ -29,7 +29,7 @@ const App = ()=>{
   return (
     <Main>
       <form>
-        <input type="input" value="Nhập nội dung ở đây..." onchange={getInputValue}/>
+        <input type="input" onChange={getInputValue}/>
       </form>
       <Content>{inputValue}</Content>
     </Main>
