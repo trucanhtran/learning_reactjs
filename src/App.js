@@ -1,20 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import styled from 'styled-components';
+import {useState} from 'react';
 
-const App = () => {
-  const [value, setValue] = useState('abc')
+const Main = styled.div`
+  border: 1px solid #ccc;
+  width: 500px;
+  min-height: 200px
+`;
 
-  const getValue = (event) => {
-    const value = event.target.value;
-    setValue(value);
-  }
+const styleInput = styled.input`
+  border: 1px solid #ccc;
+`;
+
+
+
+const App = ()=>{
+  const [inputValue, setInputValue] = useState("Nội dung hiển thị ở đây");
 
   return (
-    <div className="App">
-      <form><input type="input" onChange={getValue} /></form>
-      {value}
-    </div>
+    <Main>
+      <styleInput type="text" value="Nhập chữ ở đây"/>
+    </Main>
   );
 }
 
