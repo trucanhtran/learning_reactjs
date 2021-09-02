@@ -9,6 +9,10 @@ const Main = styled.div`
   min-height: 200px
 `;
 
+const Content = styled.div`
+  color: #ed6a6a;
+`;
+
 const styleInput = styled.input`
   border: 1px solid #ccc;
 `;
@@ -18,9 +22,16 @@ const styleInput = styled.input`
 const App = ()=>{
   const [inputValue, setInputValue] = useState("Nội dung hiển thị ở đây");
 
+  const getInputValue = (event)=>{
+    setInputValue(event.target.value);
+  }
+
   return (
     <Main>
-      <styleInput type="text" value="Nhập chữ ở đây"/>
+      <form>
+        <input type="input" value="Nhập nội dung ở đây..." onchange={getInputValue}/>
+      </form>
+      <Content>{inputValue}</Content>
     </Main>
   );
 }
