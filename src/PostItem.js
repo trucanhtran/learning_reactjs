@@ -1,14 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 
-const PostItem = (props) => {
+const PostItem = ({img, title, description}) => {
   return (
     <div className="post-item">
-      <img src = {props.img}
-      alt = "2 cách làm pizza hải sản phô mai bằng lò nướng và nồi chiên không dầu"
+      <img src = {img}
+      alt = "{title}"
       />
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   )
 }
