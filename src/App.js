@@ -1,21 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
-import Content from './Content';
+
 
 const App = () => {
-  const [value, setValue] = useState('abc')
+  const [counter, setCounter] = useState(1)
 
-  const getValue = (event) => {
-    const value = event.target.value
-    setValue(value);
+  const handleIncrease = () => {
+    setCounter(counter + 1)
   }
 
   return (
     <div className="App">
-      <button onClick={() => console.log(Math.random(1))}>Click</button>
-      <input type="text" onChange={getValue} placeholder="Nhập vào đây" />
-      <Content value={value} />
+      <h1>{counter}</h1>
+      <button onClick={handleIncrease}>Increase</button>
     </div>
   );
 }
