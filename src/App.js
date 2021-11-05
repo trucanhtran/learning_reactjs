@@ -2,26 +2,60 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
-const gifts = [
-  "CPU i9",
-  "RAM 32GB RGB",
-  "RGB Keyboard",
-  "Laptop"
+const courses = [
+  {
+    id: 1,
+    name: "HTML, CSS"
+  },
+  {
+    id: 2,
+    name: "Javascript"
+  },
+  {
+    id: 3,
+    name: "React Js"
+  }
 ]
 
 const App = () => {
-  const [gift, setGift] = useState()
 
-  const randomGift = () => {
-    const index = Math.floor(Math.random() * gifts.length)
+  const [name, setName]= useState('')
+  const [email, setEmail]= useState('')
+  const [checked, setChecked] = useState("")
 
-    setGift(gifts[index]);
+  const handleSubmit = () => {
+    console.log({name, email})
+  }
+
+  const handleRegister = () => {
+    console.log({id: checked})
   }
 
   return (
     <div className="App">
-      <h1>{gift || "Chưa có phần thưởng"}</h1>
-      <button onClick={randomGift}>Lấy thưởng</button>
+      <input
+        onChange = {e => setName(e.target.value)}
+        value={name}
+      />
+      <input
+        onChange = {e => setEmail(e.target.value)}
+        value={email}
+      />
+      <button onClick={handleSubmit}>Submit</button>
+      <div>
+        {courses.map(course =>(
+          <div key={course.id}>
+          <input
+            type="radio"
+            checked = {checked === course.id}
+            onChange = {() => setChecked(course.id)}
+          />
+          {course.name}
+          </div>))
+
+        }
+      </div>
+      <button onClick={handleRegister}>Submit</button>
     </div>
   );
 }
