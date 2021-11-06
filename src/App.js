@@ -2,60 +2,26 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
-const courses = [
-  {
-    id: 1,
-    name: "HTML, CSS"
-  },
-  {
-    id: 2,
-    name: "Javascript"
-  },
-  {
-    id: 3,
-    name: "React Js"
-  }
-]
+const orders = [100, 200, 300];
 
 const App = () => {
+  const [info, setInfo] = useState({
+    name: 'Nguyen Van A',
+    age: 18,
+    address: 'Ha Noi VN'
+  })
 
-  const [name, setName]= useState('')
-  const [email, setEmail]= useState('')
-  const [checked, setChecked] = useState("")
-
-  const handleSubmit = () => {
-    console.log({name, email})
-  }
-
-  const handleRegister = () => {
-    console.log({id: checked})
-  }
+const handleUpdate = () => {
+  setInfo(prev => ({
+    ...prev,
+    bio: 'yeu mau hong'
+  }))
+}
 
   return (
     <div className="App">
-      <input
-        onChange = {e => setName(e.target.value)}
-        value={name}
-      />
-      <input
-        onChange = {e => setEmail(e.target.value)}
-        value={email}
-      />
-      <button onClick={handleSubmit}>Submit</button>
-      <div>
-        {courses.map(course =>(
-          <div key={course.id}>
-          <input
-            type="radio"
-            checked = {checked === course.id}
-            onChange = {() => setChecked(course.id)}
-          />
-          {course.name}
-          </div>))
-
-        }
-      </div>
-      <button onClick={handleRegister}>Submit</button>
+      <h1>{JSON.stringify(info)}</h1>
+      <button onClick={handleUpdate}>Update</button>
     </div>
   );
 }
