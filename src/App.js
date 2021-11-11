@@ -2,26 +2,55 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
-const orders = [100, 200, 300];
+const courses = [
+  {
+    id: 1,
+    name: "HTML, CSS"
+  },
+  {
+    id: 2,
+    name: "Javascipt"
+  },
+  {
+    id: 3,
+    name: "React JS"
+  }
+]
 
 const App = () => {
-  const [info, setInfo] = useState({
-    name: 'Nguyen Van A',
-    age: 18,
-    address: 'Ha Noi VN'
-  })
 
-const handleUpdate = () => {
-  setInfo(prev => ({
-    ...prev,
-    bio: 'yeu mau hong'
-  }))
-}
+  const [checked, setChecked] = useState([])
+  console.log(checked);
 
+  const handleCheck = (id) => {
+    setChecked(prev => {
+      const isChecked = checked.includes(id)
+      if (isChecked){
+        //Uncheck
+        return checked.filter(item => item !== id)
+      } else {
+        return [...prev,id]
+      }
+    });
+
+  }
+
+  const handleSubmit = () => {
+    console.log({ids: checked})
+  }
   return (
     <div className="App">
-      <h1>{JSON.stringify(info)}</h1>
-      <button onClick={handleUpdate}>Update</button>
+      {courses.map(course => (
+        <div key={course.id}>
+          <input
+            type="checkbox"
+            checked={checked.includes(course.id)}
+            onChange={() => handleCheck(course.id)}
+          />
+          {course.name}
+        </div>
+      ))}
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
