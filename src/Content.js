@@ -2,18 +2,31 @@ import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
 
-const Content = ({value}) => {
-
+const Content = () => {
   const [title, setTitle] = useState('')
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    console.log("Mount")
-  })
-
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(res => res.json())
+      .then(posts => {
+        setPosts(posts);
+      })
+  },[])
 
   return (
     <div className="Content">
-      <div>{value}</div>
+      <input
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+      />
+      <ul>
+        {posts.map(post => (
+          <li key={post.id}>
+            {post.title}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
