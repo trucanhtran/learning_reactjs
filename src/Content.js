@@ -2,82 +2,34 @@ import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
 
-const tabs = ['posts', 'comments', 'albums']
-
 const Content = () => {
-  const [title, setTitle] = useState('')
-  const [posts, setPosts] = useState([])
-  const [type, setType] = useState('posts')
-  const [showGoToTop, setShowGoToTop] = useState(false)
-  console.log(type)
-
-  useEffect(() => {
-    console.log('title changed')
-    fetch(`https://jsonplaceholder.typicode.com/${type}`)
-      .then(res => res.json())
-      .then(posts => {
-        setPosts(posts);
-      })
-  },[type])
+  const [avatar, setAvatar] = useState()
 
   useEffect(() => {
 
-    const handleScroll = () => {
-      if (window.scrollY >= 200){
-        setShowGoToTop(true)
-      }
-      else
-      {
-        setShowGoToTop(false)
-      }
-    }
-    window.addEventListener('scroll', handleScroll)
-    console.log("Add event listener")
-
-    //cleanup function
+    //clean up
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      console.log("remove event listener")
+     avatar && URL.revokeObjectURL(avatar.preview)
     }
-  }, [])
+  }, [avatar])
+
+  const handlePreviewAvatar = (e) => {
+    const file = e.target.files[0]
+
+    file.preview = URL.createObjectURL(file)
+
+    setAvatar(file)
+  }
 
   return (
     <div className="Content">
-      {tabs.map(tab => (
-        <button
-          key={tab}
-          style={type === tab? {
-            color: '#fff',
-            backgroundColor: '#333'
-
-          } : {}}
-          onClick={() => setType(tab)}
-        >
-          {tab}
-        </button>
-      ))}
       <input
-        value={title}
-        onChange={e => setTitle(e.target.value)}
+        type="file"
+        onChange={handlePreviewAvatar}
       />
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>
-            {post.title || post.name}
-          </li>
-        ))}
-      </ul>
-      {showGoToTop && (
-        <button
-          style={{
-            position: 'fixed',
-            right: 20,
-            bottom: 20
-          }}
-        >
-          Go To Top
-        </button>
-      )}
+      {
+        avatar && (<img src={avatar.preview} alt="" width="80%"/>)
+      }
     </div>
   );
 }
