@@ -2,34 +2,51 @@ import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
 
+const lessons = [{
+  id:1,
+  name: 'ReactJS là gì? Tại sao nên học REactJS'
+}
+,
+{
+  id: 2,
+  name: 'SPA/mPA là gì?'
+}
+,
+{
+  id: 3,
+  name: 'Arrow function'
+}]
+
 const Content = () => {
-  const [avatar, setAvatar] = useState()
+  const [lessonId, setLessonId] = useState(1)
 
   useEffect(() => {
-
-    //clean up
-    return () => {
-     avatar && URL.revokeObjectURL(avatar.preview)
+    const handleComment = ({detail}) => {
+      console.log(detail);
     }
-  }, [avatar])
 
-  const handlePreviewAvatar = (e) => {
-    const file = e.target.files[0]
+    window.addEventListener(`lesson-${lessonId}`, handleComment)
 
-    file.preview = URL.createObjectURL(file)
-
-    setAvatar(file)
-  }
+    return () => {
+      window.removeEventListener(`lesson-${lessonId}`, handleComment)
+    }
+  }, [lessonId])
 
   return (
     <div className="Content">
-      <input
-        type="file"
-        onChange={handlePreviewAvatar}
-      />
-      {
-        avatar && (<img src={avatar.preview} alt="" width="80%"/>)
-      }
+      {lessons.map(lesson => (
+        <li
+          key={lesson.id}
+          style={{
+            color: lessonId === lesson.id ?
+              'red' :
+              '#333'
+          }}
+          onClick={() => setLessonId(lesson.id)}
+        >
+          {lesson.name}
+        </li>
+      ))}
     </div>
   );
 }
