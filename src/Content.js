@@ -1,25 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import {useLayoutEffect} from 'react'
-import {useRef, useState} from 'react';
+import {memo} from 'react';
+import { useCallback } from 'react';
 
-const Content = () => {
-  const [count, setCount] = useState(0)
+const Content = ({onIncrease}) => {
 
-  useLayoutEffect(() => {
-    if (count > 3)
-    setCount(0)
-  }, [count])
+  console.log('re-render')
 
-  const handleRun = () => {
-    setCount(count +1 )
-  }
   return (
-    <div className="Content">
-     <h1>{count}</h1>
-     <button onClick={handleRun}>Run</button>
-    </div>
+    <>
+      <h2>Hello</h2>
+      <button onClick={onIncrease}>Click me</button>
+    </>
   );
 }
 
-export default Content;
+export default memo(Content);

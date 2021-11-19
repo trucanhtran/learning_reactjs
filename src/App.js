@@ -1,39 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import { useState, useCallback} from 'react';
 import Content from './Content';
 
 const App = () => {
-  const [count, setCount] = useState(60)
+  const [count, setCount] = useState(0)
 
-  let timeId = useRef()
-  const preCount = useRef()
+  const handleIncrease = useCallback(() => {
+    setCount(preCount => preCount + 1)
+  }, [])
 
-  useEffect(() => {
-    preCount.current = count
-  },[count])
-
-  const handleStart = () => {
-    timeId.current = setInterval(() => {
-      setCount(prevCount => prevCount -1)
-    },1000)
-
-    console.log('Start -> ', timeId.current)
-  }
-
-  const handleStop = () => {
-    clearInterval(timeId.current)
-
-    console.log('Stop -> ', timeId.current)
-  }
-
-  console.log(count, preCount.current);
   return (
     <div className="App">
+      <Content onIncrease={handleIncrease}/>
       <h1>{count}</h1>
-     <button onClick={handleStart}>Start</button>
-     <button onClick={handleStop}>Stop</button>
     </div>
   );
 }
